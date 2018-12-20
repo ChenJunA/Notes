@@ -30,10 +30,10 @@ Redis 在 Java Web 主要有两个应用场景：
 
 **Spring Boot整合Redis**
 1. 引入依赖
-![](/引入依赖.png "")
+![](Redis-引入依赖.png "")
 2. application.properties配置
-![](/Redis配置.png )
+![](Redis-配置.png )
 3. 测试代码
 将对象转换成Json字符串存入Redis，在将取出的Redis使用工具类转成对象，还是使用的String类型
-![](/Redis测试代码.png )
+![](Redis-测试代码.png )
 4. 工具类

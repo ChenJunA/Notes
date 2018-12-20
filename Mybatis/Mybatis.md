@@ -59,7 +59,7 @@ Public static void main(String[] args) {
 ```
 
 ### 2、Mybatis架构
-![Mybatis架构](Mybatis架构.png "Mybatis架构")
+![Mybatis架构](Mybatis-架构.png "Mybatis架构")
 1. 通过mybatis环境等配置信息构造SqlSessionFactory即会话工厂
 2. 由会话工厂创建sqlSession即会话，操作数据库需要通过sqlSession进行。
 3. mybatis底层自定义了Executor执行器接口操作数据库，Executor接口有两个实现，一个是基本执行器、一个是缓存执行器。
