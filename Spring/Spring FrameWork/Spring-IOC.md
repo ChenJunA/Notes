@@ -167,6 +167,7 @@ ContextLoaderListener 通过 Web 容器上下文参数 contextConfigLocation 获
 **Bean的作用域是指spring容器创建Bean后的生存周期即由创建到销毁的整个过程**
 非 Web 应用环境中，Bean 只有 singleton 与 prototype 两种作用域。而在 WebApplicationContext 中，它为 Bean 添加了另外三种作用域：request、session 与 global session。
 - **Singleton(默认))**
+
 每一个Bean的实例只会被创建一次，而且Spring容器在整个应用程序生存期中都可以使用该实例。
 - **Prototype（原型，雏形，蓝本）**
 每次获取Bean实例时都会新创建一个实例对象，类似new操作符。
@@ -271,6 +272,7 @@ request和session作用域通过xml配置文件方式声明时必须在＜bean�
 每当创建一个新的HTTP Session时就会创建一个Session作用域的Bean，并该实例bean伴随着会话的存在而存在。
 - **GlobalSession**
 这种作用域类似于Session作用域，相当于全局变量，类似Servlet的Application，适用基于portlet的web应用程序，请注意，portlet在这指的是分布式开发，而不是portlet语言开发。
+所有的Seesion共享一个实例变量
 
 
 ## Spring装配beans
@@ -379,7 +381,7 @@ public class PojoFactory {
 <bean id="customer" class="com.yiibai.common.Customer" autowire="byType" />
 <bean id="person" class="com.yiibai.common.Person" />
 ```
-由于是基于类型的注入，因此当xml文件中存在多个相同类型名称不同的实例Bean时，Spring容器依赖注入仍然会失败，因为存在多种适合的选项，Spring容器无法知道该注入那种，此时我们需要为Spring容器提供帮助，指定注入那个Bean实例。可以通过＜bean＞标签的autowire-candidate设置为false来过滤那些不需要注入的实例Bean
+由于是基于类型的注入，因此当xml文件中存在多个相同类型名称不同的实例Bean时，Spring容器依赖注入仍然会失败，因为存在多种适合的选项，Spring容器无法知道该注入那种，此时我们需要为Spring容器提供帮助，指定注入那个Bean实例。可以通过＜bean＞标签的autowire-candidate(候选人)设置为false来过滤那些不需要注入的实例Bean
 ```
 <bean id="userDao"  class="com.zejian.spring.springIoc.dao.impl.UserDaoImpl" />
 
@@ -393,7 +395,7 @@ public class PojoFactory {
 - constructor – 在构造函数参数的byType方式(需要构造方法)。
 在constructor模式下，存在单个实例则优先按类型进行参数匹配（无论名称是否匹配），当存在多个类型相同实例时，按名称优先匹配，如果没有找到对应名称，则注入失败，此时可以使用autowire-candidate=”false” 过滤来解决。
 ---
-- autodetect – 该模式自动探测使用构造器自动装配或者byType自动装配。
+- autodetect(detect:查明，发现) – 该模式自动探测使用构造器自动装配或者byType自动装配。
 首先会尝试找合适的带参数的构造器，如果找到的话就是用构造器自动装配，如果在bean内部没有找到相应的构造器或者是无参构造器，容器就会自动选择byTpe的自动装配方式。
 
 ---
@@ -612,7 +614,7 @@ DI(Dependency Injection,依赖注入)：在Spring创建对象的过程中,把对
 - 重写机制原则是当声明的bean的名称一样时，后者会覆盖前者。
 - 在web应用开发过程中，一般都会将配置进行分层管理，然后通过一个主springApplication.xml来聚合它，在这样的情况下分层的配置文件属于springApplication.xml的子文件，在这样的关系遇到上述的情况一般都子文件的优先级高，因此会加载子文件的bean。
 
-@Required注解作用于Bean setter方法上，用于检查一个Bean的属性的值在配置期间是否被赋予或设置(populated)
+@Required注解作用于Bean setter方法上，用于检查一个Bean的属性的值在配置期间是否被赋予或设置(populated：居住于，生活于)
 
 **依赖注入与自动装配**
 自动装配为no时，手动装配，使用< property ref="">或< constructor-arg  ref="">。
