@@ -169,6 +169,7 @@ pic.is.null=请上传图片
 ```
 1、@Validated作用就是将pojo内的注解数据校验规则(@NotNull等)生效，如果没有该注解的声明，pojo内有注解数据校验规则也不会生效
 2、BindingResult对象用来获取校验失败的信息(@NotNull中的message)，与@Validated注解必须配对使用，一前一后
+3、 @ModelAttribute，运用在参数上，会将客户端传递过来的参数按名称注入到指定对象中
 
 ### 分组校验
 校验规则是在pojo 制定的，而同一个pojo可以被多个Controller使用，此时会有问题，即：不同的Controller方法对同一个pojo进行校验，此时这些校验信息是共享在这不同的Controller方法中，但是实际上每个Controller方法可能需要不同的校验，在这种情况下，就需要使用分组校验来解决这种问题，
