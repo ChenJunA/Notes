@@ -1,13 +1,4 @@
 ### 堆排序
-完全二叉树： 除了最后一层之外的其他每一层都被完全填充，并且所有结点都保持向左对齐。
-![完全二叉树](https://pic3.zhimg.com/v2-8c0d29eae4fb78eaaa1992226676808a_b.jpg "完全二叉树")
-![完全二叉树](完全二叉树.jpg "完全二叉树")
-满二叉树：除了叶子结点之外的每一个结点都有两个孩子，每一层(当然包含最后一层)都被完全填充。
-![满二叉树](满二叉树.jpg "满二叉树")
-
-完满二叉树：除了叶子结点之外的每一个结点都有两个孩子结点。
-![完满二叉树](完满二叉树.jpg "完满二叉树")
-
 堆是具有下列性质的完全二叉树
 * 每个节点的值都大于或等于其左右孩子节点的值，称为大顶堆
 * 每个节点的值都小于或等于其左右孩子节点的值，称为小顶堆
@@ -23,7 +14,56 @@
 
 
 **代码演示**
+```
+public static void heapSort(int[] arr) {
+    //将初始数组构建成一个大顶堆
+    buildHeap(arr);
+    //循环排序
+    for(int i = arr.length - 1; i >= 0; i--) {
+        //将数组第一位和最后一位交换位置
+        swap(arr,i,0);
+        //将剩下的元素继续构建成堆
+        heapify(arr,i,0);
+    }
+}
+//构建堆
+public static void  buildHeap(int[] arr) {
+    //最后一个节点
+    int lastNode = arr.length - 1;
+    //最后一个节点的父节点
+    int parent = (lastNode - 1) / 2;
+    for(int i = parent; i >= 0; i--) {
+        heapify(arr,arr.length,i);
+    }
+}
+//i表示进行heapfy操作的节点，和它的子节点作比较，将最大值置于根节点
+public static void heapify(int[] tree, int n, int i) {
+    if (i >= n) {
+        return;
+    }
+    //左子节点
+    int left = 2 * i + 1;
+    //右子节点
+    int right = 2 * i + 2;
+    int max = i;
+    if (left < n && tree[left] > tree[max]) {
+        max = left;
+    }
+    if (right < n && tree[right] > tree[max]) {
+        max = right;
+    }
+    if (max != i) {
+        swap(tree, max, i);
+        heapify(tree, n,max);
+    }
+}
 
+ public static void swap(int[] arr, int i, int j) {
+    int temp = arr[i];
+    arr[i] = arr[j];
+    arr[j] = temp;
+}
+```
 
 ### 参考文档
 * https://blog.csdn.net/shujuelin/article/details/82423852
