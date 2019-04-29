@@ -54,7 +54,7 @@ public static void heapify(int[] tree, int n, int i) {
     }
     if (max != i) {
         swap(tree, max, i);
-        heapify(tree, n,max);
+        heapify(tree, n, max);
     }
 }
 
