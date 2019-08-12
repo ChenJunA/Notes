@@ -447,3 +447,7 @@ public class AspectTwo implements Ordered {
 两者实现AOP的底层原理不太一样：
 Spring AOP: 基于代理(Proxying)
 AspectJ: 基于字节码操作(Bytecode Manipulation)
+
+
+前置通知优先级数字越小越靠前，
+后置通知优先级数字越小越靠后
