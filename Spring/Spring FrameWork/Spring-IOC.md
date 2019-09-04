@@ -21,6 +21,12 @@
 ### BeanFactory(IOC容器)
 - **定义**
    BeanFactory 是类的通用工厂，它可以创建并管理各种类的对象，这些类就是 POJO，Spring 称这些被创建并管理的类对象为 Bean。里的Bean和我们之前理解的JavaBean有些不同，之前我们理解的JavaBean需要符合一定的规范，而这里的Bean范围更大，在这里凡是可以被Spring实例化管理的JAVA类都可以成为Bean，这样说来，这里的Bean首先包含我们刚才说的JavaBean，还包含着其他可以被实例化的Java类，这样说来BeanFactory就是一个工厂，创建可以被实例化和管理的Java对象，如果给其一个更合适的称呼，估计IOC容器算是比较合适吧。
+   JavaBean:
+   * 默认无参构造函数
+   * 被序列化并且实现了Serializable接口
+   * get&set方法
+   * public修饰类
+   * private修饰属性
 - **体系结构**
    ![BeanFactory继承体系](https://upload-images.jianshu.io/upload_images/3386108-2a580484388112e6.png "BeanFactory继承体系")
 - **初始化**
@@ -32,8 +38,8 @@
        xmlns:p="http://www.springframework.org/schema/p"
        xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
 
-    <bean id="people" class="net.deniro.springBoot.spring4.IoC.People"
-          p:name="deniro"
+    <bean id="people" class="com.cj.spring.ioc.People"
+          p:name="cj"
           p:age="25"
             />
    </beans>
@@ -474,7 +480,7 @@ public class UserServiceImpl implements UserService {
 默认按照名称进行装配，名称可以通过name属性进行指定，如果没有指定name属性，当注解写在字段上时，默认取字段名进行安装名称查找，如果注解写在setter方法上默认取属性名进行装配。当找不到与名称匹配的bean时才按照类型进行装配。但是需要注意的是，如果name属性一旦指定，就只会按照名称进行装配。
 
 - **@Value**
-上述两种自动装配的依赖注入并不适合简单值类型，如int、boolean、long、String以及Enum等，对于这些类型，Spring容器也提供了@Value注入的方式，这是非常具备人性化的，可以解决很多硬编码问题。@Value接收一个String的值，该值指定了将要被注入到内置的java类型属性值，放心，不必关系类型转换，大多数情况下Spring容器都会自动处理好的。一般情况下@Value会与properties文件结合使用，也分两种情况一种是SpEL（有点类似于jsp的EL），另外一种是占位符方式，
+上述两种自动装配的依赖注入并不适合简单值类型，如int、boolean、long、String以及Enum等，对于这些类型，Spring容器也提供了@Value注入的方式，这是非常具备人性化的，可以解决很多硬编码问题。@Value接收一个String的值，该值指定了将要被注入到内置的java类型属性值，放心，不必关心类型转换，大多数情况下Spring容器都会自动处理好的。一般情况下@Value会与properties文件结合使用，也分两种情况一种是SpEL（有点类似于jsp的EL），另外一种是占位符方式，
 利用注解@Value获取jdbc.url和jdbc.username的值，实现如下：
 ```
 public class UserServiceImpl implements UserService {
